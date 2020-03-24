@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhotoAccessManager : MonoBehaviour
-{
-    [DllImport("_Internal")]
+{ 
+
+    [DllImport("__Internal")]
     private static extern void OpenImagePicker(string gameObjectName, string functionName);
 
     public void OpenImagePicker_Helper()
@@ -14,8 +16,8 @@ public class PhotoAccessManager : MonoBehaviour
     }
 
     // TODO: determine how the image should be assigned to AR game object.
-    // TODO: test whether the above extern function executes as expected.
-    //private void AssignImage(string path)
-    //{
+    private void AssignImage(string path)
+    {
 
-    //}
+    }
+}

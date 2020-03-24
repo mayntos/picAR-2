@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>									
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "IOSBridge.h"
 
 char image_url_path[1024];
 
