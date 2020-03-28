@@ -18,10 +18,10 @@ public class PlaceOnPlane : MonoBehaviour
     [Tooltip("Instantiates this prefab on a plane at the touch location.")]
     GameObject m_PlacedPrefab;
 
-    //[SerializeField]
-    //Text textRef;
+    [SerializeField]
+    Text textRef;
 
-    //int spawnCount = 0;
+    int spawnCount = 0;
 
     /// <summary>
     /// The prefab to instantiate on touch.
@@ -74,16 +74,21 @@ public class PlaceOnPlane : MonoBehaviour
             // will be the closest hit.
             var hitPose = s_Hits[0].pose;
 
-            //Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
+            spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
+            textRef.text = spawnedObject ? "Debug object was spawned." : "Object was not spawned.";
             //textRef.text = $"Spawn Count: {++spawnCount}";
-            if (spawnedObject == null)
-            {
-                spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
-            }
-            else
-            {
-                spawnedObject.transform.position = hitPose.position;
-            }
+            //if (spawnedObject == null)
+            //{
+            //    spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
+            //}
+            //else
+            //{
+            //    spawnedObject.transform.position = hitPose.position;
+            //}
+        }
+        else
+        {
+            textRef.text = $"Raycast did not intersect with bounded field.";
         }
     }
 
