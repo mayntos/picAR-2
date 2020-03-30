@@ -18,11 +18,6 @@ public class PlaceOnPlane : MonoBehaviour
     [Tooltip("Instantiates this prefab on a plane at the touch location.")]
     GameObject m_PlacedPrefab;
 
-    [SerializeField]
-    Text textRef;
-
-    int spawnCount = 0;
-
     /// <summary>
     /// The prefab to instantiate on touch.
     /// </summary>
@@ -75,20 +70,7 @@ public class PlaceOnPlane : MonoBehaviour
             var hitPose = s_Hits[0].pose;
 
             spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
-            textRef.text = spawnedObject ? "Debug object was spawned." : "Object was not spawned.";
-            //textRef.text = $"Spawn Count: {++spawnCount}";
-            //if (spawnedObject == null)
-            //{
-            //    spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
-            //}
-            //else
-            //{
-            //    spawnedObject.transform.position = hitPose.position;
-            //}
-        }
-        else
-        {
-            textRef.text = $"Raycast did not intersect with bounded field.";
+ 
         }
     }
 
