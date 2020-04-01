@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class PhotoAccessManager : MonoBehaviour
@@ -16,8 +17,31 @@ public class PhotoAccessManager : MonoBehaviour
     }
 
     // TODO: determine how the image should be assigned to AR game object.
-    private void AssignImage(string path)
+    private IEnumerator AssignImage(string uri)
     {
+        Texture2D imageTexture;
+        yield return StartCoroutine(GenerateTexture(uri, outputTexture => imageTexture = outputTexture));
+        // Pass texture reference Polaroid manager
 
+    }
+
+    private IEnumerator GenerateTexture(string source, System.Action<Texture2D> PassTexture)
+    {
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(source))
+        {
+            yield return uwr.SendWebRequest();
+
+            if (uwr.isNetworkError || uwr.isHttpError)
+            {
+                Debug.Log(uwr.error);
+                yield break;
+
+            }
+            else
+            {
+                PassTexture(DownloadHandlerTexture.GetContent(uwr));
+            }
+        }
+      
     }
 }
