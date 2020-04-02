@@ -28,6 +28,7 @@ public class PolaroidManager : MonoBehaviour
 
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
+        objectToSpawn.GetComponent<Renderer>().material.mainTexture = storedTexture;
         Instantiate(objectToSpawn, spawnPosition, spawnRotation);
     }
 }
