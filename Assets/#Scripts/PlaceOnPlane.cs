@@ -20,26 +20,10 @@ public class PlaceOnPlane : MonoBehaviour
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     ARRaycastManager m_RaycastManager;
 
-    GameObject spawnedObject;
-
-    public Toggle toggleBegin;
-    public Toggle toggleMoved;
-    public Toggle toggleEnded;
     void Awake()
     {
         m_RaycastManager = GetComponent<ARRaycastManager>();
     }
-
-    //bool TryGetTouchPosition(out Vector2 touchPosition)
-    //{
-    //    if (Input.touchCount > 0)
-    //    {
-    //        touchPosition = Input.GetTouch(0).position;
-    //        return true;
-    //    }
-    //    touchPosition = default;
-    //    return false;
-    //}
 
     bool TryGetTouchData(out Vector2 touchPosition, out TouchPhase touchPhase)
     {
@@ -60,41 +44,25 @@ public class PlaceOnPlane : MonoBehaviour
 
     void Update()
     {
-        // so... I can get the position...although I also need to know the touch phase.
-        // When the touch phase begins -> spawn object at that position.
-        // When the moved phase begins -> move the polaroid object accordingly.
-        // When the end   phase begins -> deselect the given polaroid objects.
-        //if (!TryGetTouchPosition(out Vector2 touchPosition))
-        //    return;
 
         if (!TryGetTouchData(out Vector2 touchPosition, out TouchPhase touchPhase))
             return;
 
-        switch (touchPhase)
+        if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
         {
-            case TouchPhase.Began:
-                toggleBegin.isOn = true;
-                toggleEnded.isOn = false;
-                break;
-            case TouchPhase.Moved:
-                toggleMoved.isOn = true;
-                toggleBegin.isOn = false;
-                break;
-            case TouchPhase.Ended:
-                toggleEnded.isOn = true;
-                toggleMoved.isOn = false;
-                break;
-            default:
-                break;
-        }
+            // Raycast hits are sorted by distance, so the first one
+            // will be the closest hit.
+            var hitPose = s_Hits[0].pose;
 
-        //if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
-        //{
-        //    // Raycast hits are sorted by distance, so the first one
-        //    // will be the closest hit.
-        //    var hitPose = s_Hits[0].pose;
-        //    if (!spawnedObject)
-        //        pmRef.SpawnPolaroid(hitPose.position, hitPose.rotation);
-        //}
+            if (touchPhase == TouchPhase.Began)
+                pmRef.SpawnPolaroid(hitPose.position, hitPose.rotation);
+
+            else if (touchPhase == TouchPhase.Moved)
+                pmRef.MoveCurrentPolaroid(hitPose.position);
+
+            else if (touchPhase == TouchPhase.Ended)
+                pmRef.DeselectPolaroid();
+
+        }
     }
 }

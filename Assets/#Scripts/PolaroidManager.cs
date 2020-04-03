@@ -20,6 +20,7 @@ public class PolaroidManager : MonoBehaviour
     GameObject objectToSpawn;
 
     private Texture2D storedTexture;
+    private GameObject currPolaroid;
 
     public void SetStoredTexture(Texture2D texture)
     {
@@ -28,7 +29,17 @@ public class PolaroidManager : MonoBehaviour
 
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
+        currPolaroid = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
         objectToSpawn.GetComponent<Renderer>().material.mainTexture = storedTexture;
-        Instantiate(objectToSpawn, spawnPosition, spawnRotation);
+    }
+
+    public void MoveCurrentPolaroid(Vector3 newPosition)
+    {
+        currPolaroid.transform.position = newPosition;
+    }
+
+    public void DeselectPolaroid()
+    {
+        currPolaroid = null;
     }
 }
