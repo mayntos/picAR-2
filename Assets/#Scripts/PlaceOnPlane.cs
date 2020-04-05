@@ -54,19 +54,24 @@ public class PlaceOnPlane : MonoBehaviour
             // will be the closest hit.
             var hitPose = s_Hits[0].pose;
 
-            // adjustment to the rotation, since the hit generates a
-            // point with rotation perpendicular to its respective AR plane.
-            hitPose.rotation *= Quaternion.Euler(180f, 0, 0); 
+            // adjustment to the rotation, since ARRaycastHit generates a
+            // point with a rotation perpendicular to its respective AR plane.
+            hitPose.rotation *= Quaternion.Euler(90f, 0, 0);
 
-            if (touchPhase == TouchPhase.Began)
-                pmRef.SpawnPolaroid(hitPose.position, hitPose.rotation);
-
-            else if (touchPhase == TouchPhase.Moved)
-                pmRef.MoveCurrentPolaroid(hitPose.position);
-
-            else if (touchPhase == TouchPhase.Ended)
-                pmRef.DeselectPolaroid();
-
+            switch (touchPhase)
+            {
+                case TouchPhase.Began:
+                    pmRef.SpawnPolaroid(hitPose.position, hitPose.rotation);
+                    break;
+                case TouchPhase.Moved:
+                    pmRef.MoveCurrentPolaroid(hitPose.position);
+                    break;
+                case TouchPhase.Ended:
+                    pmRef.DeselectPolaroid();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
