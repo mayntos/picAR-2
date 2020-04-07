@@ -44,7 +44,6 @@ public class PlaceOnPlane : MonoBehaviour
 
     void Update()
     {
-
         if (!TryGetTouchData(out Vector2 touchPosition, out TouchPhase touchPhase))
             return;
 
@@ -64,7 +63,7 @@ public class PlaceOnPlane : MonoBehaviour
                     pmRef.SpawnPolaroid(hitPose.position, hitPose.rotation);
                     break;
                 case TouchPhase.Moved:
-                    pmRef.MoveCurrentPolaroid(hitPose.position);
+                    pmRef.MovePolaroid(hitPose.position);
                     break;
                 case TouchPhase.Ended:
                     pmRef.DeselectPolaroid();

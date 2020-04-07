@@ -6,13 +6,6 @@ public class PolaroidManager : MonoBehaviour
 {
     // Create an ImageFrameManager interface.
 
-    // PolaroidManager should be able to:
-    // 1. Spawn AR polaroid objects.
-    // 2. Store polaroid objects under this script's object.
-    // 3. Pop (delete) recent object.
-
-    // Start is called before the first frame update
-
     // Perhaps I can use an object pool in the future?
 
     [SerializeField]
@@ -33,7 +26,7 @@ public class PolaroidManager : MonoBehaviour
         objectToSpawn.GetComponent<Renderer>().material.mainTexture = storedTexture;
     }
 
-    public void MoveCurrentPolaroid(Vector3 newPosition)
+    public void MovePolaroid(Vector3 newPosition)
     {
         currPolaroid.transform.position = newPosition;
     }
@@ -41,5 +34,10 @@ public class PolaroidManager : MonoBehaviour
     public void DeselectPolaroid()
     {
         currPolaroid = null;
+    }
+
+    public void RotatePolaroid(float rotationToApply)
+    {
+
     }
 }
