@@ -27,4 +27,9 @@ public class Polaroid : MonoBehaviour
                 picTextRef = t.gameObject.GetComponent<TextMeshPro>();
         }
     }
+
+    public void SetPicFrameRotation(Vector3 newRotation)
+    {
+        picFrameTransRef.localEulerAngles = newRotation;
+    }
 }

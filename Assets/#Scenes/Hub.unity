@@ -494,8 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6657feb3b8efe419f81a49a549320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 7994619686757782894, guid: 4bb7ecf13fbf9412fb6b4fc3ff7eae8f,
-    type: 3}
+  objectToSpawn: {fileID: 495998517, guid: 4bb7ecf13fbf9412fb6b4fc3ff7eae8f, type: 3}
 --- !u!1 &439593821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1292172246486946, guid: 4d8c6c9fba0e46f489b21fd7d92d739d,

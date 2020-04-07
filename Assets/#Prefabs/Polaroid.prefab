@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7994619685546775899}
   m_Layer: 0
   m_Name: PicText (TMP)
-  m_TagString: Untagged
+  m_TagString: PictureText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 7994619686487589960}
   m_Layer: 0
   m_Name: PicFrame
-  m_TagString: Untagged
+  m_TagString: PictureFrame
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -413,8 +413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fc0077a5fc83147853b24011a6c957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pictureBox: {fileID: 7994619686487589966}
-  textRef: {fileID: 0}
 --- !u!1 &7994619686865790705
 GameObject:
   m_ObjectHideFlags: 0

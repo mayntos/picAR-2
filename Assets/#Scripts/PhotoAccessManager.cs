@@ -19,11 +19,15 @@ public class PhotoAccessManager : MonoBehaviour
         OpenImagePicker(gameObject.name, "StoreTexture");
     }
 
+    // This function is doing more than just storing a texture.
     private IEnumerator StoreTexture(string uri)
     {
+        // TODO: Profiling, storing JPEG from URI and processing; as opposed to accessing the URI twice.
         Texture2D imageTexture = Texture2D.blackTexture; // default is a plain, black texture.
         yield return StartCoroutine(TryGenerateTexture(uri, outputTexture => imageTexture = outputTexture));
         pmRef.SetStoredTexture(imageTexture);
+
+        pmRef.RotatePicFrame(ReadExifOrientation(uri));
     }
 
     private IEnumerator TryGenerateTexture(string source, System.Action<Texture2D> PassTexture)
@@ -43,32 +47,14 @@ public class PhotoAccessManager : MonoBehaviour
         }
     }
 
-    private void ReadOrientation(string sourcePath)
+    private int ReadExifOrientation(string sourcePath)
     {
-        int orientationValue;
-
         using (ExifReader reader = new ExifReader(sourcePath))
         {
-            if (reader.GetTagValue<int>(ExifTags.Orientation, out orientationValue))
-            {
-                // Relevant ExifOrientations and their values:
-                // TopRight = Rotate 90 CW = 6
-                // BottomLeft = Rotate 270 CW = 8
-                // BottomRight = Rotate 180 = 3
-                // EXIF Tag info: https://exiftool.org/TagNames/EXIF.html
-
-                switch (orientationValue)
-                {
-                    case 6:
-                        break;
-                    case 8:
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        break;
-                }
-            }
+            if (reader.GetTagValue<int>(ExifTags.Orientation, out int orientationValue))
+                return orientationValue;
+            else
+                return 0; // indicates that no orientation value was located.
         }
     }
 }
