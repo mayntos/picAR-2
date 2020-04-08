@@ -12,7 +12,8 @@ public class PhotoAccessManager : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void OpenImagePicker(string gameObjectName, string functionName);
 
-    public PolaroidManager pmRef;
+    [SerializeField]
+    PolaroidManager pmRef;
 
     public void OpenImagePicker_Helper()
     {

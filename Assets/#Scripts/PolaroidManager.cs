@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PolaroidManager : MonoBehaviour
 {
-    // Create an ImageFrameManager interface.
-
     // Perhaps I can use an object pool in the future?
 
     [SerializeField]
@@ -23,7 +21,7 @@ public class PolaroidManager : MonoBehaviour
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
         currPolaroid = Instantiate(objectToSpawn, spawnPosition, spawnRotation); 
-        objectToSpawn.GetComponent<Renderer>().material.mainTexture = storedTexture;
+        currPolaroid.SetPicFrameImage(storedTexture);
     }
 
     public void MovePolaroid(Vector3 newPosition)

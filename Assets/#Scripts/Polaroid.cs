@@ -32,4 +32,9 @@ public class Polaroid : MonoBehaviour
     {
         picFrameTransRef.localEulerAngles = newRotation;
     }
+
+    public void SetPicFrameImage(Texture2D texture)
+    {
+        picFrameMeshRendRef.material.mainTexture = texture;
+    }
 }
