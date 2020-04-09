@@ -66,7 +66,7 @@ public class PlaceOnPlane : MonoBehaviour
                     pmRef.MovePolaroid(hitPose.position);
                     break;
                 case TouchPhase.Ended:
-                    pmRef.DeselectPolaroid();
+                    //pmRef.DeselectPolaroid();
                     break;
                 default:
                     break;

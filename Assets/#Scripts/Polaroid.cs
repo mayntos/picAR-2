@@ -9,18 +9,10 @@ public class Polaroid : MonoBehaviour
     Transform picFrameTransRef;
     MeshRenderer picFrameMeshRendRef;
 
-    [SerializeField]
-    Vector3 PicFrameRotationLocal;
-    [SerializeField]
-    Vector3 PicFrameNewRotation;
-
     TextMeshPro picTextRef;
 
     private void Awake()
     {
-        //DEBUG
-        PicFrameRotationLocal = picFrameTransRef.localEulerAngles;
-
         // Retrieve the relevant component references
         // from this object's children.
         foreach(Transform t in transform)
@@ -39,8 +31,6 @@ public class Polaroid : MonoBehaviour
     public void SetPicFrameRotation(Vector3 newRotation)
     {
         picFrameTransRef.localEulerAngles = newRotation;
-        //DEBUG
-        PicFrameNewRotation = newRotation;
     }
 
     public void SetPicFrameImage(Texture2D texture)

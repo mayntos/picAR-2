@@ -34,7 +34,7 @@ public class PolaroidManager : MonoBehaviour
         currPolaroid = null;
     }
 
-    public void RotatePicFrame(int orientationValue)
+    public void RotatePicFrame(short orientationValue)
     {
         if (orientationValue == 0)
             return;
