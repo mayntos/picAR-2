@@ -49,13 +49,13 @@ public class PolaroidManager : MonoBehaviour
         switch (orientationValue)
         {
             case 6:
-                rotationToApply = new Vector3(90f, 90f, -90f);
+                rotationToApply = new Vector3(0, 0, -90f);
                 break;
             case 8:
-                rotationToApply = new Vector3(90f, 90f, 90f);
+                rotationToApply = new Vector3(0, 0, 90f);
                 break;
             case 3:
-                rotationToApply = new Vector3(90f, 90f, 180f);
+                rotationToApply = new Vector3(0, 0, 180f);
                 break;
             default:
                 break;

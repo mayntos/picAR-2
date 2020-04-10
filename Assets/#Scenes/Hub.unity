@@ -494,7 +494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6657feb3b8efe419f81a49a549320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 495998517, guid: 4bb7ecf13fbf9412fb6b4fc3ff7eae8f, type: 3}
+  objectToSpawn: {fileID: 6677537509997699340, guid: 8623e4beb06a44a4bb399bf892be65bf,
+    type: 3}
 --- !u!1 &439593821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1292172246486946, guid: 4d8c6c9fba0e46f489b21fd7d92d739d,
@@ -911,7 +912,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pmRef: {fileID: 381034642}
-  debugOrientation: {fileID: 1544740945}
 --- !u!1 &1140058617
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,16 +16,13 @@ public class PhotoAccessManager : MonoBehaviour
     [SerializeField]
     PolaroidManager pmRef;
 
-    [SerializeField]
-    Text debugOrientation;
-
     public void OpenImagePicker_Helper()
     {
         OpenImagePicker(gameObject.name, "StoreTexture");
     }
 
     // This function is doing more than just storing a texture.
-    private IEnumerator StoreTexture(string uri)
+    public IEnumerator StoreTexture(string uri)
     {
         // TODO: Profiling, storing JPEG from URI and processing; as opposed to accessing the URI twice.
         Texture2D imageTexture = Texture2D.blackTexture; // default is a plain, black texture.
@@ -53,6 +50,19 @@ public class PhotoAccessManager : MonoBehaviour
     }
 
     private short ReadExifOrientation(MemoryStream source)
+    {
+        using (ExifReader reader = new ExifReader(source))
+        {
+            if (reader.GetTagValue(ExifTags.Orientation, out System.UInt16 orientationValue))
+            {
+                return System.Convert.ToInt16(orientationValue);
+            }
+            else
+                return 0;
+        }
+    }
+
+    public short ReadExifOrientation(string source)
     {
         using (ExifReader reader = new ExifReader(source))
         {
