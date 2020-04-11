@@ -250,8 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6657feb3b8efe419f81a49a549320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 495998517, guid: 4bb7ecf13fbf9412fb6b4fc3ff7eae8f, type: 3}
-  currPolaroid: {fileID: 0}
+  objectToPool: {fileID: 6677537509997699340, guid: 8623e4beb06a44a4bb399bf892be65bf,
+    type: 3}
+  poolCount: 5
 --- !u!114 &555901329
 MonoBehaviour:
   m_ObjectHideFlags: 0

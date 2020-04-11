@@ -29,6 +29,7 @@ public class DebugOrientation : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            pmRef.SpawnPolaroid(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
             debug(sourcePaths[count++]);
         }
     }

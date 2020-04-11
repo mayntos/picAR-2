@@ -7,11 +7,38 @@ public class PolaroidManager : MonoBehaviour
     // Perhaps I can use an object pool in the future?
 
     [SerializeField]
-    [Tooltip("The prefab that should be spawned.")]
-    Polaroid objectToSpawn;
+    Polaroid objectToPool;
 
-    private Texture2D storedTexture;
-    private Polaroid currPolaroid;
+    [SerializeField]
+    int poolCount;
+    Queue<Polaroid> polaroidPool;
+    Polaroid currPolaroid;
+
+    Texture2D storedTexture;
+
+    public void Awake()
+    {
+        polaroidPool = new Queue<Polaroid>();
+        AddPolaroids(poolCount);
+    }
+
+    private void AddPolaroids(int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            Polaroid p = Instantiate(objectToPool);
+            p.gameObject.SetActive(false);
+            polaroidPool.Enqueue(p);
+        }
+    }
+
+    private Polaroid GetPolaroid()
+    {
+        if (poolCount == 0)
+            AddPolaroids(1);
+
+        return polaroidPool.Dequeue();
+    }
 
     public void SetStoredTexture(Texture2D texture)
     {
@@ -20,7 +47,10 @@ public class PolaroidManager : MonoBehaviour
 
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
-        currPolaroid = Instantiate(objectToSpawn, spawnPosition, spawnRotation); 
+        currPolaroid = GetPolaroid();
+        currPolaroid.gameObject.SetActive(true);
+        MovePolaroid(spawnPosition);
+        RotatePolaroid(spawnRotation);
         currPolaroid.SetPicFrameImage(storedTexture);
     }
 
@@ -29,8 +59,14 @@ public class PolaroidManager : MonoBehaviour
         currPolaroid.transform.position = newPosition;
     }
 
+    public void RotatePolaroid(Quaternion newRotation)
+    {
+        currPolaroid.transform.rotation = newRotation;
+    }
+
     public void DeselectPolaroid()
     {
+        polaroidPool.Enqueue(currPolaroid);
         currPolaroid = null;
     }
 
