@@ -43,7 +43,7 @@ public class PhotoAccessManager : MonoBehaviour
             else
             {
                 MemoryStream imgStream = new MemoryStream(uwr.downloadHandler.data);
-                pmRef.RotatePicFrame(ReadExifOrientation(imgStream));
+                pmRef.SetStoredOrientation(ReadExifOrientation(imgStream));
                 PassTexture(DownloadHandlerTexture.GetContent(uwr));
             }
         }

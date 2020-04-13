@@ -15,6 +15,7 @@ public class PolaroidManager : MonoBehaviour
     Polaroid currPolaroid;
 
     Texture2D storedTexture;
+    short storedOrientation;
 
     public void Awake()
     {
@@ -45,12 +46,18 @@ public class PolaroidManager : MonoBehaviour
         storedTexture = texture;
     }
 
+    public void SetStoredOrientation(short val)
+    {
+        storedOrientation = val;
+    }
+
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
         currPolaroid = GetPolaroid();
         currPolaroid.gameObject.SetActive(true);
         MovePolaroid(spawnPosition);
         RotatePolaroid(spawnRotation);
+        RotatePicFrame(storedOrientation);
         currPolaroid.SetPicFrameImage(storedTexture);
     }
 
@@ -94,6 +101,7 @@ public class PolaroidManager : MonoBehaviour
                 rotationToApply = new Vector3(0, 0, 180f);
                 break;
             default:
+                rotationToApply = new Vector3(0, 0, 0);
                 break;
         }
 

@@ -30,6 +30,7 @@ public class Polaroid : MonoBehaviour
 
     public void SetPicFrameRotation(Vector3 newRotation)
     {
+        picFrameTransRef.localEulerAngles = new Vector3(0, 0, 0);
         picFrameTransRef.Rotate(newRotation);
     }
 
