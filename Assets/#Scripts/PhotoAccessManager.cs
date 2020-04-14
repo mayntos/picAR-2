@@ -18,33 +18,30 @@ public class PhotoAccessManager : MonoBehaviour
 
     public void OpenImagePicker_Helper()
     {
-        OpenImagePicker(gameObject.name, "StoreTexture");
+        OpenImagePicker(gameObject.name, "TryProcessImage");
     }
 
-    // This function is doing more than just storing a texture.
-    public IEnumerator StoreTexture(string uri)
+    private IEnumerator TryProcessImage(string imgSource)
     {
-        // TODO: Profiling, storing JPEG from URI and processing; as opposed to accessing the URI twice.
-        Texture2D imageTexture = Texture2D.blackTexture; // default is a plain, black texture.
-        yield return StartCoroutine(TryGenerateTexture(uri, outputTexture => imageTexture = outputTexture));
-        pmRef.SetStoredTexture(imageTexture);
-    }
-
-    private IEnumerator TryGenerateTexture(string source, System.Action<Texture2D> PassTexture)
-    {
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(source))
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(imgSource))
         {
             yield return uwr.SendWebRequest();
 
             if (uwr.isNetworkError || uwr.isHttpError)
-            {
                 Debug.Log(uwr.error);
-            }
+
             else
             {
-                MemoryStream imgStream = new MemoryStream(uwr.downloadHandler.data);
-                pmRef.SetStoredOrientation(ReadExifOrientation(imgStream));
-                PassTexture(DownloadHandlerTexture.GetContent(uwr));
+                Texture2D imgTexture = DownloadHandlerTexture.GetContent(uwr) ?? Texture2D.blackTexture;
+                short imgOrientation = 1;
+
+                using (MemoryStream imgStream = new MemoryStream(uwr.downloadHandler.data))
+                {
+                    imgOrientation = ReadExifOrientation(imgStream);
+                }
+
+                pmRef.SetStoredTexture(imgTexture);
+                pmRef.SetStoredOrientation(imgOrientation);
             }
         }
     }
@@ -54,9 +51,8 @@ public class PhotoAccessManager : MonoBehaviour
         using (ExifReader reader = new ExifReader(source))
         {
             if (reader.GetTagValue(ExifTags.Orientation, out System.UInt16 orientationValue))
-            {
                 return System.Convert.ToInt16(orientationValue);
-            }
+
             else
                 return 0;
         }
@@ -67,9 +63,8 @@ public class PhotoAccessManager : MonoBehaviour
         using (ExifReader reader = new ExifReader(source))
         {
             if (reader.GetTagValue(ExifTags.Orientation, out System.UInt16 orientationValue))
-            {
                 return System.Convert.ToInt16(orientationValue);
-            }
+
             else
                 return 0;
         }
