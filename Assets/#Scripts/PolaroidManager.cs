@@ -73,6 +73,7 @@ public class PolaroidManager : MonoBehaviour
 
     public void DeselectPolaroid()
     {
+        currPolaroid.SetPicText();
         polaroidPool.Enqueue(currPolaroid);
         currPolaroid = null;
     }
