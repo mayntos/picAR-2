@@ -43,9 +43,12 @@ public class PolaroidManager : MonoBehaviour
 
     public Polaroid GetCurrentPolaroid()
     {
-        currPolaroid = GetPolaroid();
+        if (currPolaroid == null)
+            currPolaroid = GetPolaroid();
+
         if (currPolaroid.gameObject.activeSelf == true)
             currPolaroid.gameObject.SetActive(false);
+
         return currPolaroid;
     }
 

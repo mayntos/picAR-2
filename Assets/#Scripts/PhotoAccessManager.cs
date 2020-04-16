@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Drawing;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using ExifLib;
+using System.Threading.Tasks;
 
 public class PhotoAccessManager : MonoBehaviour
 { 
@@ -16,9 +16,9 @@ public class PhotoAccessManager : MonoBehaviour
     [SerializeField]
     PolaroidManager pmRef;
 
-    public void OpenImagePicker_Helper()
+    public Task OpenImagePicker_Helper()
     {
-        OpenImagePicker(gameObject.name, "TryProcessImage");
+        return Task.Run(() => OpenImagePicker(gameObject.name, "TryProcessImage"));
     }
 
     private IEnumerator TryProcessImage(string imgSource)
@@ -58,6 +58,7 @@ public class PhotoAccessManager : MonoBehaviour
         }
     }
 
+    // part of debug
     public short ReadExifOrientation(string source)
     {
         using (ExifReader reader = new ExifReader(source))

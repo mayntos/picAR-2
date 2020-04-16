@@ -1910,7 +1910,7 @@ GameObject:
   - component: {fileID: 1499501459}
   - component: {fileID: 1499501458}
   m_Layer: 5
-  m_Name: Button_PhotoLibrary
+  m_Name: Button_ConfigPolaroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1979,8 +1979,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1091656388}
-        m_MethodName: OpenImagePicker_Helper
+      - m_Target: {fileID: 25063342}
+        m_MethodName: ConfigurePolaroid
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
