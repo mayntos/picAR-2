@@ -29,12 +29,6 @@ public class Polaroid : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (kbRef != null)
-            picTextRef.text = kbRef.text;
-    }
-
     public void SetPicFrameRotation(Vector3 newRotation)
     {
         picFrameTransRef.localEulerAngles = new Vector3(0, 0, 0);
@@ -46,11 +40,13 @@ public class Polaroid : MonoBehaviour
         picFrameMeshRendRef.material.mainTexture = texture;
     }
 
-    // SetPicText
-    // 1. Open TouchScreenKeyboard
-    // 2. Update the Polaroid's textbox (also preview) as the user types.
-    public void SetPicText()
+    public void SetPicText(string s)
     {
-        kbRef = TouchScreenKeyboard.Open(picTextRef.text, TouchScreenKeyboardType.Default, true, true, false, false, "", 80);
+        picTextRef.text = s;
+    }
+
+    public string GetPicText()
+    {
+        return picTextRef.text;
     }
 }

@@ -41,6 +41,14 @@ public class PolaroidManager : MonoBehaviour
         return polaroidPool.Dequeue();
     }
 
+    public Polaroid GetCurrentPolaroid()
+    {
+        currPolaroid = GetPolaroid();
+        if (currPolaroid.gameObject.activeSelf == true)
+            currPolaroid.gameObject.SetActive(false);
+        return currPolaroid;
+    }
+
     public void SetStoredTexture(Texture2D texture)
     {
         storedTexture = texture;
@@ -53,7 +61,6 @@ public class PolaroidManager : MonoBehaviour
 
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
-        currPolaroid = GetPolaroid();
         currPolaroid.gameObject.SetActive(true);
         MovePolaroid(spawnPosition);
         RotatePolaroid(spawnRotation);
@@ -73,7 +80,6 @@ public class PolaroidManager : MonoBehaviour
 
     public void DeselectPolaroid()
     {
-        currPolaroid.SetPicText();
         polaroidPool.Enqueue(currPolaroid);
         currPolaroid = null;
     }

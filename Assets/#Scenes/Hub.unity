@@ -131,6 +131,8 @@ GameObject:
   m_Component:
   - component: {fileID: 25063340}
   - component: {fileID: 25063339}
+  - component: {fileID: 25063341}
+  - component: {fileID: 25063342}
   m_Layer: 0
   m_Name: Scene Manager
   m_TagString: Untagged
@@ -166,6 +168,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &25063341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25063338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd70094d43cf10a44a2dae310597e93f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &25063342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25063338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34487d3ecb484cc48bf2b2f3b3639409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pamRef: {fileID: 1091656388}
+  pmRef: {fileID: 381034642}
+  kbmRef: {fileID: 25063341}
 --- !u!1 &79667235
 GameObject:
   m_ObjectHideFlags: 0
