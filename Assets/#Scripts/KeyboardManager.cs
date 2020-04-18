@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +20,8 @@ public class KeyboardManager : MonoBehaviour
         }
     }
 
-    public void SetPicText(Polaroid p)
+    public void SetPicText(string origText)
     {
-        kbRef = TouchScreenKeyboard.Open(p.GetPicText(), TouchScreenKeyboardType.Default, true, true, false, false, "", 80);
+        kbRef = TouchScreenKeyboard.Open(origText, TouchScreenKeyboardType.Default, true, true, false, false, "", 80);
     }
 }

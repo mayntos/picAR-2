@@ -13,9 +13,13 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     KeyboardManager kbmRef;
 
-    public async void ConfigurePolaroid()
+    public void Awake()
     {
-        await pamRef.OpenImagePicker_Helper();
-        kbmRef.SetPicText(pmRef.GetCurrentPolaroid());
+        pamRef.ImageProcessed += (s, ee) => kbmRef.SetPicText(ee.polaroidText);
+    }
+
+    public void ConfigurePolaroid()
+    {
+        pamRef.OpenImagePicker_Helper();
     }
 }

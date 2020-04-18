@@ -1,12 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.IO;
+using System;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using ExifLib;
-using System.Threading.Tasks;
+using TMPro;
 
 public class PhotoAccessManager : MonoBehaviour
 { 
@@ -16,9 +15,18 @@ public class PhotoAccessManager : MonoBehaviour
     [SerializeField]
     PolaroidManager pmRef;
 
-    public Task OpenImagePicker_Helper()
+    public event EventHandler<ImageProcessedArgs> ImageProcessed;
+
+    protected virtual void OnImageProcessed(Polaroid p)
     {
-        return Task.Run(() => OpenImagePicker(gameObject.name, "TryProcessImage"));
+        EventHandler<ImageProcessedArgs> handler = ImageProcessed;
+        ImageProcessedArgs args = new ImageProcessedArgs(p);
+        handler?.Invoke(this, args);
+    }
+
+    public void OpenImagePicker_Helper()
+    {
+        OpenImagePicker(gameObject.name, "TryProcessImage");
     }
 
     private IEnumerator TryProcessImage(string imgSource)
@@ -42,6 +50,7 @@ public class PhotoAccessManager : MonoBehaviour
 
                 pmRef.SetStoredTexture(imgTexture);
                 pmRef.SetStoredOrientation(imgOrientation);
+                OnImageProcessed(pmRef.GetCurrentPolaroid());
             }
         }
     }
@@ -68,6 +77,16 @@ public class PhotoAccessManager : MonoBehaviour
 
             else
                 return 0;
+        }
+    }
+
+    public class ImageProcessedArgs : EventArgs
+    {
+        public string polaroidText { get; set; }
+
+        public ImageProcessedArgs(Polaroid sourcePolaroid)
+        {
+            polaroidText = sourcePolaroid.GetPicText();
         }
     }
 }
