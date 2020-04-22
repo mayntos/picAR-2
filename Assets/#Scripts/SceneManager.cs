@@ -15,7 +15,7 @@ public class SceneManager : MonoBehaviour
 
     public void Awake()
     {
-        pamRef.ImageProcessed += (s, ee) => kbmRef.SetPicText(ee);
+        pamRef.ImageProcessed += (s, ee) => kbmRef.SetPicText(ee.polaroid);
     }
 
     public void ConfigurePolaroid()

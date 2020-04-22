@@ -11,15 +11,12 @@ public class KeyboardManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (kbRef != null)
+        if (currPolaroid != null)
         {
             if (kbRef.status == TouchScreenKeyboard.Status.Done)
-            {
-                kbRef = null;
                 currPolaroid = null;
-            }
-
-            currPolaroid.SetPicText(kbRef.text);
+            else
+                currPolaroid.SetPicText(kbRef.text);
         }
     }
 
