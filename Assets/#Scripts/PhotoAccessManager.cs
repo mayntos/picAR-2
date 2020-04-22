@@ -82,11 +82,11 @@ public class PhotoAccessManager : MonoBehaviour
 
     public class ImageProcessedArgs : EventArgs
     {
-        public string polaroidText { get; set; }
+        public Polaroid polaroid { get; set; }
 
         public ImageProcessedArgs(Polaroid sourcePolaroid)
         {
-            polaroidText = sourcePolaroid.GetPicText();
+            polaroid = sourcePolaroid;
         }
     }
 }

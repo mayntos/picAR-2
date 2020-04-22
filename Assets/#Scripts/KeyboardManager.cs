@@ -14,14 +14,18 @@ public class KeyboardManager : MonoBehaviour
         if (kbRef != null)
         {
             if (kbRef.status == TouchScreenKeyboard.Status.Done)
+            {
                 kbRef = null;
+                currPolaroid = null;
+            }
 
             currPolaroid.SetPicText(kbRef.text);
         }
     }
 
-    public void SetPicText(string origText)
+    public void SetPicText(Polaroid p)
     {
-        kbRef = TouchScreenKeyboard.Open(origText, TouchScreenKeyboardType.Default, true, true, false, false, "", 80);
+        currPolaroid = p;
+        kbRef = TouchScreenKeyboard.Open(p.GetPicText(), TouchScreenKeyboardType.Default, true, true, false, false, "", 80);
     }
 }
