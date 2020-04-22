@@ -67,19 +67,6 @@ public class PhotoAccessManager : MonoBehaviour
         }
     }
 
-    // part of debug
-    public short ReadExifOrientation(string source)
-    {
-        using (ExifReader reader = new ExifReader(source))
-        {
-            if (reader.GetTagValue(ExifTags.Orientation, out System.UInt16 orientationValue))
-                return System.Convert.ToInt16(orientationValue);
-
-            else
-                return 0;
-        }
-    }
-
     public class ImageProcessedArgs : EventArgs
     {
         public Polaroid polaroid { get; set; }

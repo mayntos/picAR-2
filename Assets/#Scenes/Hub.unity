@@ -523,6 +523,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6657feb3b8efe419f81a49a549320e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arCamRef: {fileID: 0}
+  hidePolaroidOffsetVal: 0.05
   objectToPool: {fileID: 6677537509997699340, guid: 8623e4beb06a44a4bb399bf892be65bf,
     type: 3}
   poolCount: 5

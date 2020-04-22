@@ -7,6 +7,10 @@ public class PolaroidManager : MonoBehaviour
     // Perhaps I can use an object pool in the future?
 
     [SerializeField]
+    GameObject arCamRef;
+    public float hidePolaroidOffsetVal;
+
+    [SerializeField]
     Polaroid objectToPool;
 
     [SerializeField]
@@ -47,8 +51,11 @@ public class PolaroidManager : MonoBehaviour
             currPolaroid = GetPolaroid();
 
         if (currPolaroid.gameObject.activeSelf == true)
-            currPolaroid.gameObject.SetActive(false);
-
+        {
+            Vector3 behindCameraPos = arCamRef.transform.position;
+            behindCameraPos.z -= hidePolaroidOffsetVal;
+            MovePolaroid(behindCameraPos);
+        }
         return currPolaroid;
     }
 
