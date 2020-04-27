@@ -10,15 +10,16 @@ public class PolaroidManager : MonoBehaviour
     GameObject arCamRef;
     public float hidePolaroidOffsetVal;
 
+    public Vector3 polaroidSpawnOffsetVal;
+
     [SerializeField]
     Polaroid objectToPool;
 
     [SerializeField]
     int poolCount;
-    [SerializeField]
     Queue<Polaroid> polaroidPool;
-    Polaroid currPolaroid;
 
+    Polaroid currPolaroid;
     Texture2D storedTexture;
     short storedOrientation;
 
@@ -80,7 +81,7 @@ public class PolaroidManager : MonoBehaviour
 
     public void MovePolaroid(Vector3 newPosition)
     {
-        currPolaroid.transform.position = newPosition;
+        currPolaroid.transform.position = newPosition + polaroidSpawnOffsetVal;
     }
 
     public void RotatePolaroid(Quaternion newRotation)
@@ -96,9 +97,6 @@ public class PolaroidManager : MonoBehaviour
 
     public void RotatePicFrame(short orientationValue)
     {
-        if (orientationValue == 0)
-            return;
-
         // Relevant ExifOrientations and their values:
         // TopRight = Rotate 90 CW = 6
         // BottomLeft = Rotate 270 CW = 8

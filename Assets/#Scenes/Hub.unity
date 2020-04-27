@@ -525,6 +525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arCamRef: {fileID: 274151884}
   hidePolaroidOffsetVal: 0.05
+  polaroidSpawnOffsetVal: {x: 0, y: 0, z: -0.01}
   objectToPool: {fileID: 6677537509997699340, guid: 8623e4beb06a44a4bb399bf892be65bf,
     type: 3}
   poolCount: 2
