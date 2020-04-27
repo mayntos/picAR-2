@@ -15,6 +15,7 @@ public class PolaroidManager : MonoBehaviour
 
     [SerializeField]
     int poolCount;
+    [SerializeField]
     Queue<Polaroid> polaroidPool;
     Polaroid currPolaroid;
 
@@ -47,8 +48,7 @@ public class PolaroidManager : MonoBehaviour
 
     public Polaroid GetCurrentPolaroid()
     {
-        if (currPolaroid == null)
-            currPolaroid = GetPolaroid();
+        currPolaroid = GetPolaroid();
 
         if (currPolaroid.gameObject.activeSelf == true)
         {
@@ -91,7 +91,7 @@ public class PolaroidManager : MonoBehaviour
     public void DeselectPolaroid()
     {
         polaroidPool.Enqueue(currPolaroid);
-        currPolaroid = null;
+        //currPolaroid = null;
     }
 
     public void RotatePicFrame(short orientationValue)
@@ -122,6 +122,6 @@ public class PolaroidManager : MonoBehaviour
                 break;
         }
 
-        currPolaroid.SetPicFrameRotation(rotationToApply);
+            currPolaroid.SetPicFrameRotation(rotationToApply);
     }
 }
