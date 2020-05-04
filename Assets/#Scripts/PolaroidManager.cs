@@ -70,6 +70,7 @@ public class PolaroidManager : MonoBehaviour
         storedOrientation = val;
     }
 
+    /*
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
         currPolaroid.gameObject.SetActive(true);
@@ -77,6 +78,13 @@ public class PolaroidManager : MonoBehaviour
         RotatePolaroid(spawnRotation);
         RotatePicFrame(storedOrientation);
         currPolaroid.SetPicFrameImage(storedTexture);
+    }
+    */
+    public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
+    {
+        currPolaroid.gameObject.SetActive(true);
+        MovePolaroid(spawnPosition);
+        RotatePolaroid(spawnRotation);
     }
 
     public void MovePolaroid(Vector3 newPosition)
