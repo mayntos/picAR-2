@@ -19,14 +19,13 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject previewPanel;
 
-    public void Awake()
-    {
-        pamRef.ImageProcessed += (s, ee) => kbmRef.SetPicText(ee.polaroid);
-    }
+    [SerializeField]
+    Light previewLight;
 
     public void ActivatePreviewPanel()
     {
         InitializePolaroidPreview();
+        previewLight.intensity = 1;
         previewPanel.SetActive(true);
     }
 
@@ -35,7 +34,7 @@ public class SceneManager : MonoBehaviour
         Vector3 v = GetPreviewPosition();
         Quaternion q = GetPreviewRotation();
 
-        pmRef.SpawnPolaroid(v, q);
+        pmRef.SpawnPolaroid(v, q, previewCameraTrans);
     }
 
     private Vector3 GetPreviewPosition()

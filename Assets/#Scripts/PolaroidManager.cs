@@ -87,6 +87,14 @@ public class PolaroidManager : MonoBehaviour
         RotatePolaroid(spawnRotation);
     }
 
+    public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation, Transform parentTrans)
+    {
+        currPolaroid.gameObject.SetActive(true);
+        currPolaroid.gameObject.transform.SetParent(parentTrans);
+        MovePolaroid(spawnPosition);
+        RotatePolaroid(spawnRotation);
+    }
+
     public void MovePolaroid(Vector3 newPosition)
     {
         currPolaroid.transform.position = newPosition + polaroidSpawnOffsetVal;
