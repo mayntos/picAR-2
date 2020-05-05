@@ -33,7 +33,8 @@ public class SceneManager : MonoBehaviour
     {
         Vector3 v = GetPreviewPosition();
         Quaternion q = GetPreviewRotation();
-
+        
+        pmRef.GetCurrentPolaroid();
         pmRef.SpawnPolaroid(v, q, previewCameraTrans);
     }
 
