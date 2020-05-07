@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class PolaroidManager : MonoBehaviour
 {
-    // Perhaps I can use an object pool in the future?
+    public static PolaroidManager Instance { get; private set; }
 
-    [SerializeField]
-    GameObject arCamRef;
+    [SerializeField] GameObject arCamRef;
     public float hidePolaroidOffsetVal;
 
     public Vector3 polaroidSpawnOffsetVal;
 
-    [SerializeField]
-    Polaroid objectToPool;
+    [SerializeField] Polaroid objectToPool;
 
-    [SerializeField]
-    int poolCount;
+    [SerializeField] int poolCount;
     Queue<Polaroid> polaroidPool;
 
     Polaroid currPolaroid;
@@ -25,6 +22,16 @@ public class PolaroidManager : MonoBehaviour
 
     public void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         polaroidPool = new Queue<Polaroid>();
         AddPolaroids(poolCount);
     }

@@ -7,21 +7,33 @@ using UnityEngine.Networking;
 using ExifLib;
 using TMPro;
 
-public class PhotoAccessManager : MonoBehaviour
-{ 
+public class PhotoAccessController : MonoBehaviour
+{
+    public static PhotoAccessController Instance { get; private set; }
+
     [DllImport("__Internal")]
     private static extern void OpenImagePicker(string gameObjectName, string functionName);
 
-    [SerializeField]
-    PolaroidManager pmRef;
-
     public event EventHandler<ImageProcessedArgs> ImageProcessed;
 
-    protected virtual void OnImageProcessed(Polaroid p)
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected virtual void OnImageProcessed(Texture2D t, int o)
     {
         EventHandler<ImageProcessedArgs> handler = ImageProcessed;
-        ImageProcessedArgs args = new ImageProcessedArgs(p);
-        handler?.Invoke(this, args);
+        ImageProcessedArgs picData = new ImageProcessedArgs(t, o);
+        handler?.Invoke(this, picData);
     }
 
     public void OpenImagePicker_Helper()
@@ -48,9 +60,9 @@ public class PhotoAccessManager : MonoBehaviour
                     imgOrientation = ReadExifOrientation(imgStream);
                 }
 
-                pmRef.SetStoredTexture(imgTexture);
-                pmRef.SetStoredOrientation(imgOrientation);
-                OnImageProcessed(pmRef.GetCurrentPolaroid());
+                PolaroidManager.Instance.SetStoredTexture(imgTexture);
+                PolaroidManager.Instance.SetStoredOrientation(imgOrientation);
+                OnImageProcessed(imgTexture, imgOrientation);
             }
         }
     }
@@ -69,11 +81,13 @@ public class PhotoAccessManager : MonoBehaviour
 
     public class ImageProcessedArgs : EventArgs
     {
-        public Polaroid polaroid { get; set; }
+        public Texture2D picTexture { get; private set; }
+        public int picOrientation { get; private set; }
 
-        public ImageProcessedArgs(Polaroid sourcePolaroid)
+        public ImageProcessedArgs(Texture2D t, int o)
         {
-            polaroid = sourcePolaroid;
+            picTexture = t;
+            picOrientation = o;
         }
     }
 }

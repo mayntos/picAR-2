@@ -14,9 +14,6 @@ using UnityEngine.XR.ARSubsystems;
 [RequireComponent(typeof(ARRaycastManager))]
 public class PlaceOnPlane : MonoBehaviour
 {
-    [SerializeField]
-    private PolaroidManager pmRef;
-
     static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
     ARRaycastManager m_RaycastManager;
 
@@ -60,13 +57,13 @@ public class PlaceOnPlane : MonoBehaviour
             switch (touchPhase)
             {
                 case TouchPhase.Began:
-                    pmRef.SpawnPolaroid(hitPose.position, hitPose.rotation);
+                    PolaroidManager.Instance.SpawnPolaroid(hitPose.position, hitPose.rotation);
                     break;
                 case TouchPhase.Moved:
-                    pmRef.MovePolaroid(hitPose.position);
+                    PolaroidManager.Instance.MovePolaroid(hitPose.position);
                     break;
                 case TouchPhase.Ended:
-                    pmRef.DeselectPolaroid();
+                    PolaroidManager.Instance.DeselectPolaroid();
                     break;
                 default:
                     break;

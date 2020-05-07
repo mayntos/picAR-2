@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    [SerializeField]
-    PhotoAccessManager pamRef;
+    [SerializeField] PhotoAccessController pamRef;
 
-    [SerializeField]
-    PolaroidManager pmRef;
-
-    [SerializeField]
-    KeyboardManager kbmRef;
-
-    public void Awake()
-    {
-        pamRef.ImageProcessed += (s, ee) => kbmRef.SetPicText(ee.polaroid);
-    }
+    [SerializeField] KeyboardManager kbmRef;
 
     public void ConfigurePolaroid()
     {
