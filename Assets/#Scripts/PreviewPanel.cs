@@ -6,19 +6,36 @@ using UnityEngine.UI;
 public class PreviewPanel : MonoBehaviour
 {
     [SerializeField] Button picFramePreview;
-    [SerializeField] Button picTextPreview;
+    [SerializeField] Text picTextPreview;
 
-    private string text;
+    private TouchScreenKeyboard kbRef;
 
     private void Start()
     {
         PhotoAccessController.Instance.ImageProcessed += (s, eArgs) => SetPicFrame(eArgs.picTexture);
     }
 
-    public void ConfigPicFrame()
+    private void Update()
+    {
+        if (kbRef != null)
+        {
+            picTextPreview.text = kbRef.text;
+        }
+    }
+
+    public void ActivatePreviewPanel()
     {
         gameObject.SetActive(true);
+    }
+
+    public void ConfigPicFrame()
+    {
         PhotoAccessController.Instance.OpenImagePicker_Helper();
+    }
+
+    public void ConfigPicText()
+    {
+        kbRef = TouchScreenKeyboard.Open(picTextPreview.text);
     }
 
     private void SetPicFrame(Texture2D t)

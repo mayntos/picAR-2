@@ -99,7 +99,6 @@ public class PolaroidManager : MonoBehaviour
     public void DeselectPolaroid()
     {
         polaroidPool.Enqueue(currPolaroid);
-        //currPolaroid = null;
     }
 
     public void RotatePicFrame(short orientationValue)
