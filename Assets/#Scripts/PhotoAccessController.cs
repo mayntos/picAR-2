@@ -29,7 +29,7 @@ public class PhotoAccessController : MonoBehaviour
         }
     }
 
-    protected virtual void OnImageProcessed(Texture2D t, int o)
+    protected virtual void OnImageProcessed(Texture2D t, short o)
     {
         EventHandler<ImageProcessedArgs> handler = ImageProcessed;
         ImageProcessedArgs picData = new ImageProcessedArgs(t, o);
@@ -82,9 +82,9 @@ public class PhotoAccessController : MonoBehaviour
     public class ImageProcessedArgs : EventArgs
     {
         public Texture2D picTexture { get; private set; }
-        public int picOrientation { get; private set; }
+        public short picOrientation { get; private set; }
 
-        public ImageProcessedArgs(Texture2D t, int o)
+        public ImageProcessedArgs(Texture2D t, short o)
         {
             picTexture = t;
             picOrientation = o;

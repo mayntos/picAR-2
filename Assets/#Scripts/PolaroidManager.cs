@@ -19,6 +19,7 @@ public class PolaroidManager : MonoBehaviour
     Polaroid currPolaroid;
     Texture2D storedTexture;
     short storedOrientation;
+    string storedDescription;
 
     public void Awake()
     {
@@ -46,6 +47,11 @@ public class PolaroidManager : MonoBehaviour
         }
     }
 
+    public void LoadPolaroid()
+    {
+        currPolaroid = GetPolaroid();
+    }
+
     private Polaroid GetPolaroid()
     {
         if (poolCount == 0)
@@ -54,6 +60,7 @@ public class PolaroidManager : MonoBehaviour
         return polaroidPool.Dequeue();
     }
 
+    /*
     public Polaroid GetCurrentPolaroid()
     {
         currPolaroid = GetPolaroid();
@@ -66,6 +73,7 @@ public class PolaroidManager : MonoBehaviour
         }
         return currPolaroid;
     }
+    */
 
     public void SetStoredTexture(Texture2D texture)
     {
@@ -77,6 +85,11 @@ public class PolaroidManager : MonoBehaviour
         storedOrientation = val;
     }
 
+    public void SetStoredDescription(string s)
+    {
+        storedDescription = s;
+    }
+
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
         currPolaroid.gameObject.SetActive(true);
@@ -84,6 +97,7 @@ public class PolaroidManager : MonoBehaviour
         RotatePolaroid(spawnRotation);
         RotatePicFrame(storedOrientation);
         currPolaroid.SetPicFrameImage(storedTexture);
+        currPolaroid.SetPicText(storedDescription);
     }
 
     public void MovePolaroid(Vector3 newPosition)
@@ -99,6 +113,7 @@ public class PolaroidManager : MonoBehaviour
     public void DeselectPolaroid()
     {
         polaroidPool.Enqueue(currPolaroid);
+        currPolaroid = null;
     }
 
     public void RotatePicFrame(short orientationValue)

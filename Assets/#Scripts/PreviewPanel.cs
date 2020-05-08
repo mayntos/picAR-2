@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class PreviewPanel : MonoBehaviour
 {
-    [SerializeField] Button picFramePreview;
+    private TouchScreenKeyboard kbRef;
+
+    [SerializeField] RawImage picFramePreview;
     [SerializeField] Text picTextPreview;
 
-    private TouchScreenKeyboard kbRef;
+    short picOrientation;
 
     private void Start()
     {
-        PhotoAccessController.Instance.ImageProcessed += (s, eArgs) => SetPicFrame(eArgs.picTexture);
+        PhotoAccessController.Instance.ImageProcessed += (s, eArgs) => SetPicFrame(eArgs.picTexture, eArgs.picOrientation);
     }
 
     private void Update()
@@ -38,10 +40,17 @@ public class PreviewPanel : MonoBehaviour
         kbRef = TouchScreenKeyboard.Open(picTextPreview.text);
     }
 
-    private void SetPicFrame(Texture2D t)
+    private void SetPicFrame(Texture2D t2D, short orientation)
     {
-        picFramePreview.GetComponent<RawImage>().texture = t;
+        picFramePreview.texture = t2D;
+        picOrientation = orientation;
     }
 
-
+    public void ConfirmPreview()
+    {
+        PolaroidManager.Instance.LoadPolaroid();
+        PolaroidManager.Instance.SetStoredTexture((Texture2D)picFramePreview.texture);
+        PolaroidManager.Instance.SetStoredOrientation(picOrientation);
+        PolaroidManager.Instance.SetStoredDescription(picTextPreview.text);
+    }
 }
