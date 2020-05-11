@@ -27,7 +27,8 @@ public class PreviewPanel : MonoBehaviour
 
     public void ActivatePreviewPanel()
     {
-        gameObject.SetActive(true);
+        bool activeState = gameObject.activeInHierarchy;
+        gameObject.SetActive(!activeState);
     }
 
     public void ConfigPicFrame()

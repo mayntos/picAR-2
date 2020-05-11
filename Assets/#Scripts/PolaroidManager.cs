@@ -113,7 +113,6 @@ public class PolaroidManager : MonoBehaviour
     public void DeselectPolaroid()
     {
         polaroidPool.Enqueue(currPolaroid);
-        currPolaroid = null;
     }
 
     public void RotatePicFrame(short orientationValue)
@@ -140,7 +139,6 @@ public class PolaroidManager : MonoBehaviour
                 rotationToApply = new Vector3(0, 0, 0);
                 break;
         }
-
-            currPolaroid.SetPicFrameRotation(rotationToApply);
+        currPolaroid.SetPicFrameRotation(rotationToApply);
     }
 }
