@@ -2444,6 +2444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CameraManager: {fileID: 274151887}
+  intensityModifier: 0.3
 --- !u!1 &1698105508
 GameObject:
   m_ObjectHideFlags: 0

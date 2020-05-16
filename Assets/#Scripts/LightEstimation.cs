@@ -14,6 +14,9 @@ public class LightEstimation : MonoBehaviour
     [Tooltip("The ARCameraManager which will produce frame events containing light estimation information.")]
     ARCameraManager m_CameraManager;
 
+    [SerializeField]
+    float intensityModifier;
+
     /// <summary>
     /// Get or set the <c>ARCameraManager</c>.
     /// </summary>
@@ -72,7 +75,7 @@ public class LightEstimation : MonoBehaviour
         if (args.lightEstimation.averageBrightness.HasValue)
         {
             brightness = args.lightEstimation.averageBrightness.Value;
-            m_Light.intensity = brightness.Value;
+            m_Light.intensity = brightness.Value + intensityModifier;
         }
 
         if (args.lightEstimation.averageColorTemperature.HasValue)
