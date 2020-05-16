@@ -5,20 +5,53 @@ using UnityEngine.UI;
 
 public class PreviewPanel : MonoBehaviour
 {
-    [SerializeField]
-    Button picPreview;
+    private TouchScreenKeyboard kbRef;
 
-    [SerializeField]
-    Text textPreview;
+    [SerializeField] RawImage picFramePreview;
+    [SerializeField] Text picTextPreview;
 
-    public void SetPicture(Texture2D pic)
+    short picOrientation;
+
+    private void Start()
     {
-        Sprite picSprite = Sprite.Create(pic, new Rect(0.0f, 0.0f, pic.width, pic.height), new Vector2(0.5f, 0.5f), 100.0f);
-        picPreview.image.sprite = picSprite;
+        PhotoAccessController.Instance.ImageProcessed += (s, eArgs) => SetPicFrame(eArgs.picTexture, eArgs.picOrientation);
     }
 
-    public void SetText(string s)
+    private void Update()
     {
-        textPreview.text = s;
+        if (kbRef != null)
+        {
+            picTextPreview.text = kbRef.text;
+        }
+    }
+
+    public void ActivatePreviewPanel()
+    {
+        bool activeState = gameObject.activeInHierarchy;
+        gameObject.SetActive(!activeState);
+    }
+
+    public void ConfigPicFrame()
+    {
+        PhotoAccessController.Instance.OpenImagePicker_Helper();
+    }
+
+    public void ConfigPicText()
+    {
+        kbRef = TouchScreenKeyboard.Open(picTextPreview.text);
+    }
+
+    private void SetPicFrame(Texture2D t2D, short orientation)
+    {
+        picFramePreview.texture = t2D;
+        picOrientation = orientation;
+    }
+
+    public void ConfirmPreview()
+    {
+        PolaroidManager.Instance.LoadPolaroid();
+        PolaroidManager.Instance.SetStoredTexture((Texture2D)picFramePreview.texture);
+        PolaroidManager.Instance.SetStoredOrientation(picOrientation);
+        PolaroidManager.Instance.SetStoredDescription(picTextPreview.text);
     }
 }

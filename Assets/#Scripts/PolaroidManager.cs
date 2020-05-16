@@ -4,27 +4,35 @@ using UnityEngine;
 
 public class PolaroidManager : MonoBehaviour
 {
-    // Perhaps I can use an object pool in the future?
+    public static PolaroidManager Instance { get; private set; }
 
-    [SerializeField]
-    GameObject arCamRef;
+    [SerializeField] GameObject arCamRef;
     public float hidePolaroidOffsetVal;
 
     public Vector3 polaroidSpawnOffsetVal;
 
-    [SerializeField]
-    Polaroid objectToPool;
+    [SerializeField] Polaroid objectToPool;
 
-    [SerializeField]
-    int poolCount;
+    [SerializeField] int poolCount;
     Queue<Polaroid> polaroidPool;
 
     Polaroid currPolaroid;
     Texture2D storedTexture;
     short storedOrientation;
+    string storedDescription;
 
     public void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         polaroidPool = new Queue<Polaroid>();
         AddPolaroids(poolCount);
     }
@@ -39,6 +47,11 @@ public class PolaroidManager : MonoBehaviour
         }
     }
 
+    public void LoadPolaroid()
+    {
+        currPolaroid = GetPolaroid();
+    }
+
     private Polaroid GetPolaroid()
     {
         if (poolCount == 0)
@@ -47,6 +60,7 @@ public class PolaroidManager : MonoBehaviour
         return polaroidPool.Dequeue();
     }
 
+    /*
     public Polaroid GetCurrentPolaroid()
     {
         currPolaroid = GetPolaroid();
@@ -59,6 +73,7 @@ public class PolaroidManager : MonoBehaviour
         }
         return currPolaroid;
     }
+    */
 
     public void SetStoredTexture(Texture2D texture)
     {
@@ -70,7 +85,11 @@ public class PolaroidManager : MonoBehaviour
         storedOrientation = val;
     }
 
-    /*
+    public void SetStoredDescription(string s)
+    {
+        storedDescription = s;
+    }
+
     public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
     {
         currPolaroid.gameObject.SetActive(true);
@@ -78,21 +97,7 @@ public class PolaroidManager : MonoBehaviour
         RotatePolaroid(spawnRotation);
         RotatePicFrame(storedOrientation);
         currPolaroid.SetPicFrameImage(storedTexture);
-    }
-    */
-    public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation)
-    {
-        currPolaroid.gameObject.SetActive(true);
-        MovePolaroid(spawnPosition);
-        RotatePolaroid(spawnRotation);
-    }
-
-    public void SpawnPolaroid(Vector3 spawnPosition, Quaternion spawnRotation, Transform parentTrans)
-    {
-        currPolaroid.gameObject.SetActive(true);
-        currPolaroid.gameObject.transform.SetParent(parentTrans);
-        MovePolaroid(spawnPosition);
-        RotatePolaroid(spawnRotation);
+        currPolaroid.SetPicText(storedDescription);
     }
 
     public void MovePolaroid(Vector3 newPosition)
@@ -108,7 +113,6 @@ public class PolaroidManager : MonoBehaviour
     public void DeselectPolaroid()
     {
         polaroidPool.Enqueue(currPolaroid);
-        //currPolaroid = null;
     }
 
     public void RotatePicFrame(short orientationValue)
@@ -135,7 +139,6 @@ public class PolaroidManager : MonoBehaviour
                 rotationToApply = new Vector3(0, 0, 0);
                 break;
         }
-
-            currPolaroid.SetPicFrameRotation(rotationToApply);
+        currPolaroid.SetPicFrameRotation(rotationToApply);
     }
 }
