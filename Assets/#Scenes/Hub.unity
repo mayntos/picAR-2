@@ -513,7 +513,7 @@ MonoBehaviour:
   polaroidSpawnOffsetVal: {x: 0, y: 0, z: -0.01}
   objectToPool: {fileID: 6677537509997699340, guid: 8623e4beb06a44a4bb399bf892be65bf,
     type: 3}
-  poolCount: 2
+  poolCount: 5
 --- !u!1 &439593821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1292172246486946, guid: 4d8c6c9fba0e46f489b21fd7d92d739d,
