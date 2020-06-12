@@ -41,6 +41,16 @@ public class PhotoAccessController : MonoBehaviour
         OpenImagePicker(gameObject.name, "TryProcessImage");
     }
 
+    public void TakeScreenshot()
+    {
+        // Store a PNG screencap of the current scene.
+        ScreenCapture.CaptureScreenshot("test_screenshot"); // potential issue: create dynamic naming schema
+        Debug.Log(Application.persistentDataPath);
+
+        // Pass the PNG filepath to TryProcessImage,
+        // which in turn fires off the event to set PreviewPanel/PolaroidManager.
+    }
+
     private IEnumerator TryProcessImage(string imgSource)
     {
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(imgSource))
