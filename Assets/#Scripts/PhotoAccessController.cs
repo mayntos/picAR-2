@@ -41,14 +41,20 @@ public class PhotoAccessController : MonoBehaviour
         OpenImagePicker(gameObject.name, "TryProcessImage");
     }
 
-    public void TakeScreenshot()
+    public void TakeScreenshot_Helper()
     {
-        // Store a PNG screencap of the current scene.
-        ScreenCapture.CaptureScreenshot("test_screenshot"); // potential issue: create dynamic naming schema
-        Debug.Log(Application.persistentDataPath);
+        StartCoroutine(TakeScreenshot());
+    }
 
-        // Pass the PNG filepath to TryProcessImage,
-        // which in turn fires off the event to set PreviewPanel/PolaroidManager.
+    private IEnumerator TakeScreenshot()
+    {
+        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
+
+        yield return new WaitForEndOfFrame();
+
+        ScreenCapture.CaptureScreenshot("test_screenshot"); // potential issue: create dynamic naming schema
+
+        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
     }
 
     private IEnumerator TryProcessImage(string imgSource)
