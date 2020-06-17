@@ -43,7 +43,7 @@ public class PhotoAccessController : MonoBehaviour
 
     public void TakeScreenshot_Helper()
     {
-        StartCoroutine(TakeScreenshot());
+        StartCoroutine(TakeScreenshot()); 
     }
 
     private IEnumerator TakeScreenshot()
@@ -52,7 +52,17 @@ public class PhotoAccessController : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        ScreenCapture.CaptureScreenshot("test_screenshot"); // potential issue: create dynamic naming schema
+        int width = Screen.width;
+        int height = Screen.height;
+        Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+
+        tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        tex.Apply();
+
+        OnImageProcessed(tex, 0);
+
+        //byte[] bytes = tex.EncodeToJPG();
+        //Destroy(tex);
 
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
     }
@@ -76,6 +86,7 @@ public class PhotoAccessController : MonoBehaviour
                     imgOrientation = ReadExifOrientation(imgStream);
                 }
 
+                // duplication?
                 PolaroidManager.Instance.SetStoredTexture(imgTexture);
                 PolaroidManager.Instance.SetStoredOrientation(imgOrientation);
                 OnImageProcessed(imgTexture, imgOrientation);
