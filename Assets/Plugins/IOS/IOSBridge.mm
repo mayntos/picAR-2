@@ -76,4 +76,10 @@ extern "C" {
             [parent presentViewController:uvc animated:YES completion:nil];
         }
     }
+
+	void SaveToPhotoLibrary(NSData *img_byte_array)
+	{
+		UIImage *imgToSave = [UIImage imageWithData: img_byte_array];
+		UIImageWriteToSavedPhotosAlbum(imgToSave);
+	}
 }
