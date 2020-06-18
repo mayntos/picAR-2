@@ -87,8 +87,8 @@ public class PhotoAccessController : MonoBehaviour
                 }
 
                 // duplication?
-                PolaroidManager.Instance.SetStoredTexture(imgTexture);
-                PolaroidManager.Instance.SetStoredOrientation(imgOrientation);
+                //PolaroidManager.Instance.SetStoredTexture(imgTexture);
+                //PolaroidManager.Instance.SetStoredOrientation(imgOrientation);
                 OnImageProcessed(imgTexture, imgOrientation);
             }
         }
